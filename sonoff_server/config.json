@@ -1,9 +1,9 @@
 {
     "name": "Sonoff Home Server",
-    "version": "33",
+    "version": "34",
     "slug": "sonoff-server",
     "description": "Sonoff Server Hass.IO",
-    "url": "https://github.com/gerswin/ihomeaddons",
+    "url": "https://github.com/mcinnes01/ihomeaddons",
     "startup": "system",
     "arch": [
         "aarch64",
@@ -13,6 +13,7 @@
     ],
     "boot": "auto",
     "hassio_api": true,
+    "hassio_role": "default",
     "homeassistant_api": true,
     "host_network": true,
     "privileged": [],
