@@ -51,7 +51,7 @@ LABEL \
     org.label-schema.name="Sonoff" \
     org.label-schema.schema-version="1.0" \
     org.label-schema.url="" \
-    org.label-schema.usage="https://github.com/gerswin/ihomeaddons/blob/master/sonoff_server/README.md" \
+    org.label-schema.usage="https://github.com/mcinnes01/ihomeaddons/blob/master/sonoff_server/README.md" \
     org.label-schema.vcs-ref=${BUILD_REF} \
-    org.label-schema.vcs-url="https://github.com/gerswin/ihomeaddons" \
+    org.label-schema.vcs-url="https://github.com/mcinnes01/ihomeaddons" \
     org.label-schema.vendor="gerswin Hass.io Add-ons"
