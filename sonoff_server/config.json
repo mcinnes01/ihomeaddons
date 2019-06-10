@@ -16,12 +16,10 @@
     "hassio_role": "default",
     "homeassistant_api": true,
     "host_network": true,
-    "privileged": [],
     "map": [
         "config:rw",
         "ssl"
     ],
-
     "options": {
         "log_level": "info"
     },
