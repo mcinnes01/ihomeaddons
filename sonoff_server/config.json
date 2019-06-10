@@ -4,7 +4,7 @@
     "slug": "sonoff-server",
     "description": "Sonoff Server Hass.IO",
     "url": "https://github.com/mcinnes01/ihomeaddons",
-    "startup": "system",
+    "startup": "application",
     "arch": [
         "aarch64",
         "amd64",
