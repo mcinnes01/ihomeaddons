@@ -8,7 +8,7 @@ module.exports.createServer = function(config) {
     const ws = require("nodejs-websocket");
     const log = config.logger;
     const lokijs = require('lokijs');
-    const db = new lokijs(deviceFile);
+    const db = new lokijs('/config/sonoff.ha.json');
     const devicesDb = db.addCollection('devices');
 
     if (config.server.privateKey === undefined)
