@@ -8,7 +8,7 @@ module.exports.createServer = function(config) {
     const ws = require("nodejs-websocket");
     const log = config.logger;
     const lokijs = require('lokijs');
-    const db = new lokijs('/config/sonoff.db.json');
+    const db = new lokijs('/data/sonoff.db.json');
     const devicesDb = db.addCollection('devices');
 
     if (config.server.privateKey === undefined)
@@ -327,20 +327,13 @@ module.exports.createServer = function(config) {
     return {
         //currently all known devices are returned with a hint if they are currently connected
         getConnectedDevices: () => {
-
-
             return devicesDb.find();
         },
         getDeviceState: (deviceId) => {
             var d = devicesDb.findOne({ 'device': deviceId });
-
-
-
             return d.state;
         },
         getDeviceStateLoki: () => {
-
-
             return devicesDb.find();
         },
 
