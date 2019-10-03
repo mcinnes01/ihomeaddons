@@ -64,9 +64,10 @@ server.use('/', express.static('static'))
 //returns an simple 0 or 1 for a known device
 server.get('/devices/:deviceId/status', function(req, res) {
     log.log('GET | %s | %s ', req.method, req.url);
-
+    log.log(devices.getDeviceStateLoki());
+    log.log(req.params.deviceId);
     var d = devices.getDeviceState(req.params.deviceId);
-    console.log(d)
+    log.log(d)
     if (!d || d == "disconnected") {
         res.status(404).send('Sonoff device ' + req.params.deviceId + ' not found');
     } else {
