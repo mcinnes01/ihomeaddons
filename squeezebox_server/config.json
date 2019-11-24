@@ -1,9 +1,10 @@
 {
     "name": "Logitech Squeezebox Server",
-    "version": "0.0.20",
+    "version": "0.0.23",
     "slug": "squeezebox-server",
     "description": "Logitech Squeezebox Server Hass.IO addon",
     "url": "https://github.com/mcinnes01/ihomeaddons",
+    "webui": "http://192.168.1.1:9000",
     "startup": "services",
     "arch": [
       "aarch64",
@@ -15,7 +16,7 @@
     "hassio_api": true,
     "hassio_role": "default",
     "homeassistant_api": false,
-    "host_network": true,
+    "host_network": false,
     "map": [
         "config:rw",
         "share:rw",
