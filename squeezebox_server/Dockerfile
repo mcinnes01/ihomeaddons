@@ -15,8 +15,8 @@ ENV PACKAGE_VERSION=7.9.2~1574315728
 ENV ARCH=${BUILD_ARCH}
 
 # Install requirements and utilities
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
+RUN apt-get update
+RUN apt-get install -y --no-install-recommends \
     libnginx-mod-http-lua=1.14.0-0ubuntu1.6 \
     luarocks=2.4.2+dfsg-1 \
     nginx=1.14.0-0ubuntu1.6 \
