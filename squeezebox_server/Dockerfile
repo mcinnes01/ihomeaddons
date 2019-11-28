@@ -16,16 +16,28 @@ ENV ARCH=${BUILD_ARCH}
 
 # Install requirements and utilities
 RUN apt-get update && \
-    apt-get -y install curl wget nano faad flac lame sox libio-socket-ssl-perl \
+    apt-get install -y --no-install-recommends \
+    libnginx-mod-http-lua=1.14.0-0ubuntu1.6 \
+    luarocks=2.4.2+dfsg-1 \
+    nginx=1.14.0-0ubuntu1.6 \
+    curl wget nano faad flac lame sox libio-socket-ssl-perl \
     iputils-ping \
-    iproute2 \
-    && apt-get clean
+    iproute2S
+
+RUN luarocks install lua-resty-http 0.13-0
 
 # Download and install nightly
 RUN wget -r --no-directories --no-parent -A 'logitechmediaserver_'${PACKAGE_VERSION}'_'${ARCH}'.deb' ${PACKAGE_URL}
 RUN mv logitechmediaserver_${PACKAGE_VERSION}_${ARCH}.deb /tmp/logitechmediaserver.deb
 RUN dpkg -i /tmp/logitechmediaserver.deb
 RUN rm -f /tmp/logitechmediaserver.deb
+RUN rm -fr \
+        /tmp/* \
+        /etc/nginx \
+        /var/{cache,log}/* \
+        /var/lib/apt/lists/*
+RUN mkdir -p /var/log/nginx
+RUN touch /var/log/nginx/error.log
 RUN apt-get clean
 
 # This will be created by the entrypoint script.

@@ -1,12 +1,12 @@
 {
-    "name": "Logitech Squeezebox Server",
-    "version": "0.0.29",
+    "name": "Squeezebox Server",
+    "version": "0.0.32",
     "slug": "squeezebox-server",
     "description": "Logitech Squeezebox Server Hass.IO addon",
     "url": "https://github.com/mcinnes01/ihomeaddons/squeezebox_server",
     "webui": "[PROTO:ssl]://[HOST]:[PORT:9000]",
     "ingress": true,
-    "ingress_port": 9000,
+    "ingress_port": 0,
     "startup": "services",
     "panel_icon": "mdi:music",
     "arch": [
@@ -22,8 +22,9 @@
     ],
     "boot": "auto",
     "hassio_api": true,
-    "hassio_role": "default",
     "auth_api": true,
+    "hassio_role": "default",
+    "homeassistant_api": false,
     "options": {
       "ssl": true,
       "certfile": "fullchain.pem",
@@ -35,7 +36,8 @@
       "ssl": "bool",
       "certfile": "str",
       "keyfile": "str",
-      "media_path": "str"
+      "media_path": "str",
+      "leave_front_door_open": "bool?"
     },
     "ports": {
         "9000/tcp": 9000,
