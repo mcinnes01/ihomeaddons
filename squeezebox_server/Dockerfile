@@ -21,6 +21,13 @@ RUN apt-get update && \
     iproute2 \
     && apt-get clean
 
+# Download and install nightly
+RUN wget -r --no-directories --no-parent -A 'logitechmediaserver_'${PACKAGE_VERSION}'_'${ARCH}'.deb' ${PACKAGE_URL}
+RUN mv logitechmediaserver_${PACKAGE_VERSION}_${ARCH}.deb /tmp/logitechmediaserver.deb
+RUN dpkg -i /tmp/logitechmediaserver.deb
+RUN rm -f /tmp/logitechmediaserver.deb
+RUN apt-get clean
+
 RUN apt-get install -y --no-install-recommends \
         libnginx-mod-http-lua=1.14.0-0ubuntu1.6 \
         luarocks=2.4.2+dfsg-1 \
@@ -35,13 +42,6 @@ RUN apt-get install -y --no-install-recommends \
     \
     && mkdir -p /var/log/nginx \
     && touch /var/log/nginx/error.log
-
-# Download and install nightly
-RUN wget -r --no-directories --no-parent -A 'logitechmediaserver_'${PACKAGE_VERSION}'_'${ARCH}'.deb' ${PACKAGE_URL}
-RUN mv logitechmediaserver_${PACKAGE_VERSION}_${ARCH}.deb /tmp/logitechmediaserver.deb
-RUN dpkg -i /tmp/logitechmediaserver.deb
-RUN rm -f /tmp/logitechmediaserver.deb
-RUN apt-get clean
 
 # This will be created by the entrypoint script.
 RUN userdel squeezeboxserver

@@ -1,6 +1,6 @@
 {
     "name": "Squeezebox Server",
-    "version": "0.0.34",
+    "version": "0.0.35",
     "slug": "squeezebox-server",
     "description": "Logitech Squeezebox Server Hass.IO addon",
     "url": "https://github.com/mcinnes01/ihomeaddons/squeezebox_server",
