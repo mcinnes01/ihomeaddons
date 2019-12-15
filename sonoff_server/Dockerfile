@@ -45,7 +45,7 @@ LABEL \
     io.hass.arch="${BUILD_ARCH}" \
     io.hass.type="addon" \
     io.hass.version=${BUILD_VERSION} \
-    maintainer="Gerswin <gerswin@parawebs.com>" \
+    maintainer="McInnes01 <mcinnes01@hotmail.com>" \
     org.label-schema.description="Sonoff devices for Home Assistant" \
     org.label-schema.build-date=${BUILD_DATE} \
     org.label-schema.name="Sonoff" \
@@ -54,4 +54,4 @@ LABEL \
     org.label-schema.usage="https://github.com/mcinnes01/ihomeaddons/blob/master/sonoff_server/README.md" \
     org.label-schema.vcs-ref=${BUILD_REF} \
     org.label-schema.vcs-url="https://github.com/mcinnes01/ihomeaddons" \
-    org.label-schema.vendor="gerswin Hass.io Add-ons"
+    org.label-schema.vendor="McInnes01 Hass.io Add-ons"

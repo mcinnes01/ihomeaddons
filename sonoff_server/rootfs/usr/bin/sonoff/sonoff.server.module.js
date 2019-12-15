@@ -1,8 +1,8 @@
 module.exports.createServer = function(config) {
     const CONNECTION_IS_ALIVE_CHECK_INTERVAL = 30000;
-    const configFile = '/config/sonoff.config.json'
-    const deviceFile = '/config/sonoff.devices.json'
-    const devicesHaFile = '/config/sonoff.ha.json'
+    const configFile = '/share/sonoff.config.json'
+    const deviceFile = '/share/sonoff.devices.json'
+    const devicesHaFile = '/share/sonoff.ha.json'
     const fs = require('fs');
     const path = require('path');
     const ws = require("nodejs-websocket");
