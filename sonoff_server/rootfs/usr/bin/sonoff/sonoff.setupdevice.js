@@ -14,7 +14,7 @@ var apPWD = "12345678";
 var parameterMissing = false;
 
 //config from file
-const config = JSON.parse(fs.readFileSync(path.resolve(__dirname, './sonoff.config.json')));
+const config = JSON.parse(fs.readFileSync(path.resolve(__dirname, '/share/sonoff/sonoff.config.json')));
 if (config.server == undefined) config.server = {};
 if (config.router == undefined) config.router = {};
 

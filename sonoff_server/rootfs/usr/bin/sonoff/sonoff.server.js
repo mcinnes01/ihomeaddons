@@ -7,9 +7,9 @@ var bodyParser = require('body-parser')
 var http = require('http');
 var ip = require('ip');
 
-const configFile = '/share/sonoff.config.json'
-const deviceFile = '/share/sonoff.devices.json'
-const devicesHaFile = '/share/sonoff.ha.json'
+const configFile = '/share/sonoff/sonoff.config.json'
+const deviceFile = '/share/sonoff/sonoff.devices.json'
+const devicesHaFile = '/share/sonoff/sonoff.ha.json'
 
 // const configFile = './sonoff.config.json'
 // const deviceFile = './sonoff.devices.json'
@@ -18,9 +18,9 @@ var config;
 try {
     config = JSON.parse(fs.readFileSync(path.resolve(__dirname, configFile)));
 } catch (err) {
-    fs.createReadStream('./share/sonoff.config.json').pipe(fs.createWriteStream(configFile));
-    fs.createReadStream('./share/sonoff.devices.json').pipe(fs.createWriteStream(deviceFile));
-    config = JSON.parse(fs.readFileSync(path.resolve(__dirname, './share/sonoff.config.json')));
+    fs.createReadStream('./share/sonoff/sonoff.config.json').pipe(fs.createWriteStream(configFile));
+    fs.createReadStream('./share/sonoff/sonoff.devices.json').pipe(fs.createWriteStream(deviceFile));
+    config = JSON.parse(fs.readFileSync(path.resolve(__dirname, configFile)));
     console.log("Please check /share folder for sonoff.config.json and restart the addon")
 }
 
