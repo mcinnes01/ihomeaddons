@@ -3,71 +3,29 @@ ARG BUILD_FROM=hassioaddons/debian-base:3.2.3
 FROM ${BUILD_FROM}
 EXPOSE 80/tcp
 
-# Set shell
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-
-# Setup base system
-ARG BUILD_ARCH=amd64
-RUN \
-    ARCH="${BUILD_ARCH}" \
-    && if [ "${BUILD_ARCH}" = "aarch64" ]; then ARCH="arm64"; fi \
-    && if [ "${BUILD_ARCH}" = "armv7" ]; then ARCH="armhf"; fi \
-    \
-    && apt-get update \
-    && apt-get install -y --no-install-recommends \
-        libfontconfig1=2.13.1-2 \
-        memcached=1.5.6-1.1 \
-        nginx=1.14.2-2+deb10u3 \
-        redis-server \
-        python3 \
-        python3-pip \
-        python3-dev \
-        python3-venv \
-        python3-zmq \
-        python3-scipy \
-        python3-numpy \
-        supervisor \
-        libbluetooth-dev \
-        bluez \
-        libcap2-bin\
-        libbluetooth3 \
-        ca-certificates \
-        build-essential \
-        git-core \
-        avrdude \
-        nano \
-    \
-    && if [ "${BUILD_ARCH}" = "amd64" ]; then \
-        apt-get install -y --no-install-recommends \
-            libasound2=1.1.8-1 \
-            libcups2=2.2.10-6+deb10u3  \
-            libdbus-1-3=1.12.20-0+deb10u1 \
-            libglib2.0-0=2.58.3-2+deb10u2 \
-            libgtk-3-0=3.24.5-1 \
-            libnss3=2:3.42.1-1+deb10u3 \
-            libx11-6=2:1.6.7-1+deb10u1 \
-            libx11-xcb1=2:1.6.7-1+deb10u1 \
-            libxcomposite1=1:0.4.4-2 \
-            libxcursor1=1:1.1.15-2 \
-            libxdamage1=1:1.1.4-3+b3 \
-            libxext6=2:1.3.3-1+b2 \
-            libxfixes3=1:5.0.3-1 \
-            libxi6=2:1.7.9-1 \
-            libxrandr2=2:1.5.1-1 \
-            libxrender1=1:0.9.10-1 \
-            libxss1=1:1.2.3-1 \
-            libxtst6=2:1.2.3-1 \
-    fi \
-    \
-    && rm -fr \
-        /tmp/* \
-        /var/{cache,log}/* \
-        /var/lib/apt/lists/* \
-        /etc/nginx \
-    \
-    && mkdir -p /var/log/nginx \
-    && touch /var/log/nginx/error.log
-
+# Install the needed dependecies, some are only used at the installphase so those will be removed later.
+#
+RUN apt-get update && apt-get install --no-install-recommends -y \
+  nginx \
+  redis-server \
+  python3 \
+  python3-pip \
+  python3-dev \
+  python3-venv \
+  python3-zmq \
+  python3-scipy \
+  python3-numpy \
+  supervisor \
+  libbluetooth-dev \
+  bluez \
+  libcap2-bin\
+  libbluetooth3 \
+  ca-certificates \
+  build-essential \
+  git-core \
+  avrdude \
+  nano \
+  && apt-get install --reinstall coreutils sysvinit-utils
 #
 # Create the fermentrack user, group and directories for git. Its needed for fermentrack to work correcly
 #
@@ -113,7 +71,7 @@ RUN ln -sf /etc/nginx/sites-available/default-fermentrack /etc/nginx/sites-enabl
 #
 USER root
 WORKDIR /home/fermentrack
-RUN pip install virtualenv
+RUN pip3 install virtualenv
 RUN virtualenv venv
 ENV VIRTUAL_ENV="/home/fermentrack/venv"
 ENV PATH="/home/fermentrack/venv/bin:/usr/bin"
@@ -122,7 +80,7 @@ ENV SHELL="/bin/bash"
 ENV PYTHONPATH=":/home/fermentrack/fermentrack;/home/fermentrack/venv/bin;/home/fermentrack/venv/lib/python3.8/site-packages"
 ENV USER=fermentrack
 ENV DOCKER=1
-RUN pip install --no-cache-dir -r /home/fermentrack/fermentrack/requirements.txt
+RUN pip3 install --no-cache-dir -r /home/fermentrack/fermentrack/requirements.txt
 USER fermentrack
 WORKDIR /home/fermentrack/fermentrack
 RUN python manage.py collectstatic --noinput 
@@ -138,7 +96,7 @@ VOLUME ["/home/fermentrack/fermentrack/log", "/home/fermentrack/fermentrack/data
 # Cleanup, we remove git since the docker image should not be updated this way.
 #
 USER root
-RUN rm -fr /home/fermentrack/fermentrack-tools
+RUN /bin/rm -fr /home/fermentrack/fermentrack-tools
 RUN apt-get remove -y \
   libbluetooth-dev \
   ca-certificates \
@@ -150,7 +108,6 @@ RUN apt-get remove -y \
 WORKDIR /home/fermentrack/fermentrack
 USER root
 CMD ["/usr/bin/supervisord"]
-# EOF
 
 # Build arugments
 ARG BUILD_ARCH
