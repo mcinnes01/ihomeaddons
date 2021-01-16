@@ -1,4 +1,4 @@
-ARG BUILD_FROM=hassioaddons/debian-base:3.2.3
+ARG BUILD_FROM=ubuntu:groovy
 # hadolint ignore=DL3006
 FROM ${BUILD_FROM}
 EXPOSE 80/tcp
