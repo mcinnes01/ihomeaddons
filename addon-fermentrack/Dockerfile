@@ -2,7 +2,7 @@ ARG BUILD_FROM=ubuntu:groovy
 # hadolint ignore=DL3006
 FROM ${BUILD_FROM}
 EXPOSE 80/tcp
-
+#
 # Install the needed dependecies, some are only used at the installphase so those will be removed later.
 #
 RUN apt-get update && apt-get install --no-install-recommends -y \
@@ -24,8 +24,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
   build-essential \
   git-core \
   avrdude \
-  nano \
-  && apt-get install --reinstall coreutils sysvinit-utils
+  nano
 #
 # Create the fermentrack user, group and directories for git. Its needed for fermentrack to work correcly
 #
@@ -71,7 +70,7 @@ RUN ln -sf /etc/nginx/sites-available/default-fermentrack /etc/nginx/sites-enabl
 #
 USER root
 WORKDIR /home/fermentrack
-RUN pip3 install virtualenv
+RUN pip install virtualenv
 RUN virtualenv venv
 ENV VIRTUAL_ENV="/home/fermentrack/venv"
 ENV PATH="/home/fermentrack/venv/bin:/usr/bin"
@@ -80,7 +79,7 @@ ENV SHELL="/bin/bash"
 ENV PYTHONPATH=":/home/fermentrack/fermentrack;/home/fermentrack/venv/bin;/home/fermentrack/venv/lib/python3.8/site-packages"
 ENV USER=fermentrack
 ENV DOCKER=1
-RUN pip3 install --no-cache-dir -r /home/fermentrack/fermentrack/requirements.txt
+RUN pip install --no-cache-dir -r /home/fermentrack/fermentrack/requirements.txt
 USER fermentrack
 WORKDIR /home/fermentrack/fermentrack
 RUN python manage.py collectstatic --noinput 
@@ -96,7 +95,7 @@ VOLUME ["/home/fermentrack/fermentrack/log", "/home/fermentrack/fermentrack/data
 # Cleanup, we remove git since the docker image should not be updated this way.
 #
 USER root
-RUN /bin/rm -fr /home/fermentrack/fermentrack-tools
+RUN rm -fr /home/fermentrack/fermentrack-tools
 RUN apt-get remove -y \
   libbluetooth-dev \
   ca-certificates \
@@ -108,7 +107,7 @@ RUN apt-get remove -y \
 WORKDIR /home/fermentrack/fermentrack
 USER root
 CMD ["/usr/bin/supervisord"]
-
+# EOF
 # Build arugments
 ARG BUILD_ARCH
 ARG BUILD_DATE
