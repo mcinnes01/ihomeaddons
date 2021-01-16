@@ -1,6 +1,6 @@
 {
   "name": "Fermentrack",
-  "version": "0.3",
+  "version": "0.4",
   "slug": "fermentrack",
   "description": "BrewPi-compatible fermentation tracking & temperature control software",
   "url": "https://github.com/mcinnes01/addon-fermentrack",

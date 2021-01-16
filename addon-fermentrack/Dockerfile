@@ -95,7 +95,7 @@ VOLUME ["/home/fermentrack/fermentrack/log", "/home/fermentrack/fermentrack/data
 # Cleanup, we remove git since the docker image should not be updated this way.
 #
 USER root
-RUN rm -fr /home/fermentrack/fermentrack-tools
+RUN /bin/rm -fr /home/fermentrack/fermentrack-tools
 RUN apt-get remove -y \
   libbluetooth-dev \
   ca-certificates \
