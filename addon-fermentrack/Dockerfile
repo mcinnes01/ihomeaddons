@@ -70,7 +70,7 @@ RUN ln -sf /etc/nginx/sites-available/default-fermentrack /etc/nginx/sites-enabl
 #
 USER root
 WORKDIR /home/fermentrack
-RUN pip install virtualenv
+RUN pip3 install virtualenv
 RUN virtualenv venv
 ENV VIRTUAL_ENV="/home/fermentrack/venv"
 ENV PATH="/home/fermentrack/venv/bin:/usr/bin"
@@ -79,7 +79,7 @@ ENV SHELL="/bin/bash"
 ENV PYTHONPATH=":/home/fermentrack/fermentrack;/home/fermentrack/venv/bin;/home/fermentrack/venv/lib/python3.8/site-packages"
 ENV USER=fermentrack
 ENV DOCKER=1
-RUN pip install --no-cache-dir -r /home/fermentrack/fermentrack/requirements.txt
+RUN pip3 install --no-cache-dir -r /home/fermentrack/fermentrack/requirements.txt
 USER fermentrack
 WORKDIR /home/fermentrack/fermentrack
 RUN python manage.py collectstatic --noinput 
